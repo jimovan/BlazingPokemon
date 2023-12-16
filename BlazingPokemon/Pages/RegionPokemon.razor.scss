@@ -1,0 +1,40 @@
+﻿.region {
+
+    &__title {
+        text-align: center;
+    }
+
+    &__grid {
+        display: grid;
+        margin-top: 1rem;
+        justify-content: space-around;
+        justify-items: center;
+        gap: 2rem;
+        grid-template-columns: repeat(3, auto);
+    }
+
+    &__card {
+        flex-direction: column;
+        padding: 0.5rem;
+        min-height: 3rem;
+        min-width: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &-name {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            font-size: 1rem;
+            margin: 0.25rem;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        &-image {
+            width: 150px;
+        }
+    }
+}

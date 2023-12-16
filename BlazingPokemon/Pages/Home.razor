@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject IPokemonService PokemonService
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@if(pokemon is not null)
+{
+    <h2>@pokemon.Name : @pokemon.Id</h2>
+}
+
+@code {
+    private Pokemon? pokemon;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemon = await PokemonService.GetPokemonId(1);
+    }
+}

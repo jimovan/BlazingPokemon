@@ -1,0 +1,75 @@
+﻿@page "/region/{id:int}"
+@using System.Diagnostics
+@using BlazingPokemon.Shared
+
+@inject IPokemonService PokemonService
+
+<div class="page-container">
+    <h1 class="region__title">@regionName Pokemon</h1>
+
+    @if (pokemon is not null && pokemon.Any())
+    {
+        <h5>Service Call: @serviceTime.Seconds seconds</h5>
+
+        <div class="region__grid">
+            @foreach (var p in pokemon)
+            {
+                <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)">
+                    <div class="region__card-name">
+                        <span>#@p.Id.ToString("D3")</span>
+                        <h4>@p.Name?.ToTitleCase()</h4>
+                    </div>
+                    <img src="@p.Sprite.Other.OfficalArtwork.ImageUrl" class="region__card-image" />
+                    <span class="region__card-desc"><b>@p.Type.ToTitleCase()</b></span>
+                </div>
+            }
+        </div>
+    }
+
+    <br />
+    <br />
+
+    @if (isLoading)
+    {
+        <Loader></Loader>
+    }
+
+    <button @onclick="() => LoadPokemon()">Load More</button>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    string regionName = string.Empty;
+    List<Pokemon> pokemon = new();
+    bool isLoading = true;
+
+    Stopwatch stopWatch = new();
+    TimeSpan serviceTime;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        stopWatch.Start();
+        regionName = PokemonService.GetRegionName(Id);
+        await LoadPokemon(true);
+
+        stopWatch.Stop();
+        serviceTime = stopWatch.Elapsed;
+    }
+
+    private async Task LoadPokemon(bool firstLoad = false)
+    {
+        isLoading = true;
+
+        if (firstLoad)
+        {
+            pokemon = new();
+        }
+
+        pokemon.AddRange(await PokemonService.GetPokemonByRegionId(Id, firstLoad));
+
+        isLoading = false;
+    }
+}
