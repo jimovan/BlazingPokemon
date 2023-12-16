@@ -17,7 +17,7 @@
                 <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)">
                     <div class="region__card-name">
                         <span>#@p.Id.ToString("D3")</span>
-                        <h4>@p.Name?.ToTitleCase()</h4>
+                        <h4 class="title">@p.Name?.ToTitleCase()</h4>
                     </div>
                     <img src="@p.Sprite.Other.OfficalArtwork.ImageUrl" class="region__card-image" />
                     <span class="region__card-desc"><b>@p.Type.ToTitleCase()</b></span>

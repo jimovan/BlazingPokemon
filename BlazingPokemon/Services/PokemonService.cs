@@ -17,24 +17,29 @@ namespace BlazingPokemon.Services
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly string _pokeApiUrl = "https://pokeapi.co/api/v2";
 
-        private readonly int _pageLimit = 9;
+        private readonly int _pageLimit = 24;
         private int offset = 0;
 
         public async Task<Pokemon> GetPokemonId(int id)
         {
             using HttpClient client = _httpClientFactory.CreateClient();
 
-            var pokemon = await client.GetFromJsonAsync<Pokemon>($"{_pokeApiUrl}/pokemon/{id}",
-                new JsonSerializerOptions(JsonSerializerDefaults.Web));
+            var response = await client.GetAsync($"{_pokeApiUrl}/pokemon/{id}");
+            var content = await response.Content.ReadAsStringAsync();
 
-            return pokemon;
+            return JsonSerializer.Deserialize<Pokemon>(content,
+                new JsonSerializerOptions(JsonSerializerDefaults.Web));
         }
 
         private async Task<Pokemon> GetPokemonByUrl(string url)
         {
-            using HttpClient client = _httpClientFactory.CreateClient();
+            using HttpClient client = _httpClientFactory.CreateClient();            
 
-            return await client.GetFromJsonAsync<Pokemon>(url, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+            var response = await client.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<Pokemon>(content,
+                new JsonSerializerOptions(JsonSerializerDefaults.Web));
         }
 
         public async Task<List<Pokemon>> GetPokemonByRegionId(int regionId, bool firstLoad = false)
