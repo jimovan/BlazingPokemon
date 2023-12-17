@@ -4,11 +4,11 @@
     "inputFile": "wwwroot/css/site.scss"
   },
   {
-    "outputFile": "pages/RegionPokemon.razor/RegionPokemon.razor.css",
-    "inputFile": "pages/RegionPokemon.razor/RegionPokemon.razor.scss"
-  },
-  {
     "outputFile": "Pages/RegionPokemon.razor.css",
     "inputFile": "Pages/RegionPokemon.razor.scss"
+  },
+  {
+    "outputFile": "Shared/Loader.razor.css",
+    "inputFile": "Shared/Loader.razor.scss"
   }
 ]

@@ -1,48 +1,35 @@
 ﻿.region {
 
+    &-container 
+        {
+
+    }
+
     &__title {
         text-align: center;
     }
 
     &__grid {
         display: grid;
-        margin-top: 1rem;
         justify-content: space-around;
         justify-items: center;
-        gap: 2rem;
-        grid-template-columns: repeat(6, auto);
-
-        @media only screen and (max-width: 97.5rem) {
-            grid-template-columns: repeat(3, auto);
-        }
-
-        @media only screen and (max-width: 56.25rem) {
-            grid-template-columns: repeat(2, auto);
-        }
-
-        @media only screen and (max-width: 43.125rem) {
-            grid-template-columns: auto;
-        }
+        gap: 0.625rem;
+        grid-template-columns: auto;
     }
 
     &__card {
-        flex-direction: column;
-        padding: 0.5rem;
-        min-height: 3rem;
-        min-width: 10rem;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        gap: 0.5rem;
+        min-width: 250px;
+        padding: 0.5rem;
         border-radius: 10px;
         cursor: pointer;
 
         &-name {
             display: flex;
-            flex-direction: row;
-            width: 100%;
-            font-size: 1rem;
+            flex-grow: 1;
+            justify-content: space-between;
             margin: 0.25rem;
-            justify-content: space-around;
             align-items: center;
 
             .title {
@@ -53,7 +40,45 @@
         }
 
         &-image {
-            width: 150px;
+            width: 50px;
+        }
+
+        &-desc {
+            display: none;
+        }
+    }
+
+    @media only screen and (min-width: 43.125rem) {
+        &__grid {
+            grid-template-columns: repeat(2, auto);
+        }
+
+        &__card {
+            display: grid;
+            gap: normal;
+            min-width: 10rem;            
+
+            &-image {
+                width: 150px;
+                grid-row: 2/3;
+            }
+
+            &-desc {
+                display: inline;
+                text-align: center;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 56.25rem) {
+        &__grid {
+            grid-template-columns: repeat(3, auto);
+        }
+    }
+
+    @media only screen and (min-width: 97.5rem) {
+        &__grid {
+            grid-template-columns: repeat(6, auto);
         }
     }
 }
