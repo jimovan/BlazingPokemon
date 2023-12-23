@@ -37,6 +37,7 @@
 @media only screen and (min-width: 43.125rem) {
   .region__grid {
     grid-template-columns: repeat(2, auto);
+    gap: 1rem;
   }
   .region__card {
     display: grid;

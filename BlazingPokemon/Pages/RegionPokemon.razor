@@ -4,7 +4,7 @@
 
 @inject IPokemonService PokemonService
 
-<div class="page-container region-container">
+<div class="page-container">
     <h1 class="region__title">@regionName Pokemon</h1>
 
     @if (pokemon is not null && pokemon.Any())
@@ -12,17 +12,17 @@
         <h5>Service Call: @serviceTime.Seconds seconds</h5>
 
         <div class="region__grid">
-            @foreach (var p in pokemon)
-            {
-                <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)">
-                    <img src="@p.Sprite.Other.OfficalArtwork.ImageUrl" class="region__card-image" />
-                    <div class="region__card-name">
-                        <span class="title">@p.Name?.ToTitleCase()</span>
-                        <span>#@p.Id.ToString("D3")</span>                        
-                    </div>                    
-                    <span class="region__card-desc"><b>@p.Type.ToTitleCase()</b></span>
-                </div>
-            }
+                @foreach (var p in pokemon)
+                {
+                    <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)">
+                        <img src="@p.Sprite.Other.OfficalArtwork.ImageUrl" class="region__card-image" />
+                        <div class="region__card-name">
+                            <span class="title">@p.Name?.ToTitleCase()</span>
+                            <span>#@p.Id.ToString("D3")</span>
+                        </div>
+                        <span class="region__card-desc"><b>@p.Type.ToTitleCase()</b></span>
+                    </div>
+                }
         </div>
     }
 
