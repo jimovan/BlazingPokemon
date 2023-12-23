@@ -6,7 +6,7 @@ namespace BlazingPokemon.Services
 {
     public interface IPokemonService
     {        
-        Task<Pokemon> GetPokemonId(int id);
+        Task<Pokemon> GetPokemonById(int id);
         Task<List<Pokemon>> GetPokemonByRegionId(int regionId, bool firstLoad = false);
         List<Region> GetRegions();
         string GetRegionName(int regionId);
@@ -20,7 +20,7 @@ namespace BlazingPokemon.Services
         private readonly int _pageLimit = 24;
         private int offset = 0;
 
-        public async Task<Pokemon> GetPokemonId(int id)
+        public async Task<Pokemon> GetPokemonById(int id)
         {
             using HttpClient client = _httpClientFactory.CreateClient();
 

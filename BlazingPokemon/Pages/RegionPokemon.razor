@@ -1,8 +1,8 @@
 ﻿@page "/region/{id:int}"
 @using System.Diagnostics
 @using BlazingPokemon.Shared
-
 @inject IPokemonService PokemonService
+@inject NavigationManager Navigation
 
 <div class="page-container">
     <h1 class="region__title">@regionName Pokemon</h1>
@@ -14,7 +14,8 @@
         <div class="region__grid">
                 @foreach (var p in pokemon)
                 {
-                    <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)">
+                    <div class="region__card type-colour-@(p.Type) type-border-colour-@(p.Type)"
+                     @onclick="@(() => ViewPokemon(@p.Id))">
                         <img src="@p.Sprite.Other.OfficalArtwork.ImageUrl" class="region__card-image" />
                         <div class="region__card-name">
                             <span class="title">@p.Name?.ToTitleCase()</span>
@@ -26,10 +27,7 @@
         </div>
     }
 
-    @if (isLoading)
-    {
-        <Loader></Loader>
-    }
+    <Loader IsLoading="@isLoading"></Loader>
 
     <button @onclick="() => LoadPokemon()">@(isLoading ? "Loading..." : "Load More")</button>
 </div>
@@ -68,5 +66,10 @@
         pokemon.AddRange(await PokemonService.GetPokemonByRegionId(Id, firstLoad));
 
         isLoading = false;
+    }
+
+    private void ViewPokemon(int id)
+    {
+        Navigation.NavigateTo($"/pokemon/{id}");
     }
 }

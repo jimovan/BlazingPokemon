@@ -17,6 +17,6 @@ Welcome to your new app.
 
     protected override async Task OnInitializedAsync()
     {
-        pokemon = await PokemonService.GetPokemonId(1);
+        pokemon = await PokemonService.GetPokemonById(1);
     }
 }

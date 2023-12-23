@@ -1,0 +1,22 @@
+﻿@page "/pokemon/{id:int}"
+@using BlazingPokemon.Shared
+@inject IPokemonService PokemonService
+
+<Loader IsLoading="@isLoading"></Loader>
+
+<h3>@pokemon.Name</h3>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Pokemon pokemon = new();
+    bool isLoading = true;
+
+    protected override async Task OnParametersSetAsync()
+    {        
+        pokemon = await PokemonService.GetPokemonById(Id);
+        isLoading = false;
+    }
+}
