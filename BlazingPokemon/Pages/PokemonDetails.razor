@@ -4,7 +4,62 @@
 
 <Loader IsLoading="@isLoading"></Loader>
 
-<h3>@pokemon.Name</h3>
+@if (isLoading == false && pokemon is not null)
+{
+    <div class="pokemon__container type-border-colour-@(pokemon.Type)">
+
+        <h1 class="pokemon__header">@pokemon.Name.ToTitleCase()</h1>
+
+        <div class="pokemon__details">
+            <section class="pokemon__image">
+                <img src="@pokemon?.Sprite?.Other.OfficalArtwork.ImageUrl" />
+
+                <div class="pokemon__types">
+
+                    @foreach (var type in pokemon.Types)
+                    {
+                        <span class="label type-colour-@type.Type.Name">@type.Type.Name</span>
+                    }
+                </div>
+            </section>
+
+            <section class="pokemon__stats">
+                <ul>
+                    <li class="stats-item">
+                        <span class="stat-name">Height:</span>
+                        <span class="stat-value">@(pokemon?.Height / 10) M</span>
+                    </li>
+                    <li class="stats-item">
+                        <span class="stat-name">Weight:</span>
+                        <span class="stat-value">@(pokemon?.Weight / 10) KG</span>
+                    </li>
+
+                    @foreach (var stat in pokemon.Stats)
+                    {
+                        <li class="stats-item">
+                            <span class="stat-name">@stat.StatsName?.Name?.ToTitleCase() :</span>
+                            <span class="stat-value">@stat.Value</span>
+                        </li>
+                    }
+                </ul>
+            </section>
+
+            <section class="pokemon__evolutions">
+                <div class="evolutions-component">
+                    <h4 class="evolution-heading">Evolution Chain</h4>
+                    <div class="evolution__container">
+                        <div *ngFor="let evolution of evolutions" routerLink="/pokemon/{{ evolution.Id }}" class="evolution__pokemon">
+                            <img src="{{ evolution.Image }}" alt="" width="100px"
+                                 [ngClass]="evolution.IsCurrentPokemon ? 'evolution__image--current' : 'evolution__image'" />
+                            <h5 class="evolution__name">{{evolution.Name | titlecase}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+}
 
 @code {
 
@@ -15,8 +70,10 @@
     bool isLoading = true;
 
     protected override async Task OnParametersSetAsync()
-    {        
+    {
         pokemon = await PokemonService.GetPokemonById(Id);
+        pokemon.Evolutions = await PokemonService.GetPokemonEvolutions(pokemon.Species.Url);
+
         isLoading = false;
     }
 }

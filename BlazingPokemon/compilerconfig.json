@@ -10,5 +10,9 @@
   {
     "outputFile": "Shared/Loader.razor.css",
     "inputFile": "Shared/Loader.razor.scss"
+  },
+  {
+    "outputFile": "Pages/PokemonDetails.razor.css",
+    "inputFile": "Pages/PokemonDetails.razor.scss"
   }
 ]
