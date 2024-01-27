@@ -1,6 +1,7 @@
 ﻿@page "/pokemon/{id:int}"
 @using BlazingPokemon.Shared
 @inject IPokemonService PokemonService
+@inject NavigationManager Navigation
 
 <Loader IsLoading="@isLoading"></Loader>
 
@@ -48,11 +49,15 @@
                 <div class="evolutions-component">
                     <h4 class="evolution-heading">Evolution Chain</h4>
                     <div class="evolution__container">
-                        <div *ngFor="let evolution of evolutions" routerLink="/pokemon/{{ evolution.Id }}" class="evolution__pokemon">
-                            <img src="{{ evolution.Image }}" alt="" width="100px"
-                                 [ngClass]="evolution.IsCurrentPokemon ? 'evolution__image--current' : 'evolution__image'" />
-                            <h5 class="evolution__name">{{evolution.Name | titlecase}}</h5>
-                        </div>
+
+                        @foreach (var evo in pokemon?.Evolutions)
+                        {
+                            <div class="evolution__pokemon">
+                                <img src="@evo.Sprite.Other.OfficalArtwork.ImageUrl" alt="" width="100px" @onclick="@(() => ViewPokemon(evo.Id))"
+                                     class="evolution__image" />
+                                <h5 class="evolution__name">@evo.Name.ToTitleCase()</h5>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
@@ -75,5 +80,11 @@
         pokemon.Evolutions = await PokemonService.GetPokemonEvolutions(pokemon.Species.Url);
 
         isLoading = false;
+    }
+
+    private void ViewPokemon(int id)
+    {
+        isLoading = true;
+        Navigation.NavigateTo($"/pokemon/{id}");
     }
 }

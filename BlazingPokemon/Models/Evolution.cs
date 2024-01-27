@@ -4,8 +4,9 @@ namespace BlazingPokemon.Models
 {
     public record Evolution
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public Sprite? Sprite { get; set; }
     }
 
     public record EvolutionChain

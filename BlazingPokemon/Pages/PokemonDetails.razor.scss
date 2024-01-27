@@ -71,12 +71,12 @@
                 justify-content: space-around;
             }
 
+            &__pokemon {
+                cursor: pointer;
+            }
+
             &__image {
                 filter: grayscale(100%);
-
-                &--current {
-                    filter: grayscale(0%);
-                }
             }
         }
     }

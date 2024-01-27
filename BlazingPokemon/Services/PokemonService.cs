@@ -124,25 +124,32 @@ namespace BlazingPokemon.Services
 
             using (JsonDocument document = JsonDocument.Parse(evolutionContent))
             {
+                var species = new List<JsonElement>();
+
                 JsonElement root = document.RootElement;
                 JsonElement chainElement = root.GetProperty("chain");
 
-                GetEvolutions(chainElement, evolutions);
-            }
+                GetEvolutions(chainElement, species);
 
-            //foreach (var item in evolutionRespone?.Chains)
-            //{
-            //    evolutions.Add(new Evolution
-            //    {
-            //        Name = item.Value.Species.Name,
-            //        Url = item.Value.Species.Url
-            //    });
-            //}
+                var tasks = species.Select(x => {
+
+                    x.TryGetProperty("url", out JsonElement speciesUrl);
+
+                    var urlFragments = speciesUrl.ToString().Split('/');
+                    
+                    return GetPokemonById(Convert.ToInt32(urlFragments[^2]));
+                });
+
+                foreach (var t in await Task.WhenAll(tasks))
+                {
+                    evolutions.Add(new Evolution { Id = t.Id, Name = t.Name, Sprite = t.Sprite });
+                }
+            }
 
             return evolutions;
         }
 
-        private void GetEvolutions(JsonElement jsonElement, List<Evolution> evolutions)
+        private void GetEvolutions(JsonElement jsonElement, List<JsonElement> species)
         {
             JsonElement evolvesElement = jsonElement.GetProperty("evolves_to");
             var evolutionCount = evolvesElement.GetArrayLength();
@@ -151,25 +158,31 @@ namespace BlazingPokemon.Services
             {
                 foreach (JsonElement chain in evolvesElement.EnumerateArray())
                 {
-                    if (jsonElement.TryGetProperty("species", out JsonElement speciesElement))
-                    {
-                        speciesElement.TryGetProperty("name", out JsonElement speciesName);
-                        speciesElement.TryGetProperty("url", out JsonElement speciesUrl);
-
-                        evolutions.Add(new Evolution { Name = speciesName.ToString(), Url = speciesUrl.ToString() });
-                    }                    
+                    FindEvolution(jsonElement, species);
 
                     if (chain.TryGetProperty("evolves_to", out JsonElement nestedEvolutionElement))
-                    {
-                        if(nestedEvolutionElement.GetArrayLength() > 0)
-                        {
-                            GetEvolutions(chain, evolutions);
-                        }                        
+                    {                        
+                        GetEvolutions(chain, species);
                     }
                 }
             }
+            else
+            {
+                FindEvolution(jsonElement, species);
+            }
 
             return;
+        }
+
+        private void FindEvolution(JsonElement jsonElement, List<JsonElement> species)
+        {
+            if (jsonElement.TryGetProperty("species", out JsonElement speciesElement))
+            {
+                if (!species.Contains(speciesElement))
+                {
+                    species.Add(speciesElement);
+                }                
+            }
         }
     }
 }
