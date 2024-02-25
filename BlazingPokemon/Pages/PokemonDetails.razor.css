@@ -1,12 +1,11 @@
 ﻿.pokemon__container {
-  background-color: #b1adad;
+  background-color: #dbdbdb;
   padding: 1rem;
   border-radius: 10px;
   max-width: 30rem;
   display: grid;
-  row-gap: 1rem;
 }
-@media only screen and (min-width: 56.25rem) {
+@media only screen and (min-width: 37.5rem) {
   .pokemon__container {
     min-width: 30rem;
   }
@@ -19,30 +18,47 @@
   row-gap: 1rem;
 }
 .pokemon__image {
-  display: grid;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 .pokemon__image img {
-  width: 12.5rem;
+  width: 11rem;
 }
 .pokemon__types {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
+}
+.pokemon__types .label {
+  color: rgb(0, 0, 0);
+  padding: 0.5rem;
+  border-radius: 10px;
+  text-align: center;
 }
 .pokemon__stats ul {
   display: grid;
   gap: 0.5rem;
 }
+@media only screen and (max-width: 37.5rem) {
+  .pokemon__stats ul {
+    justify-content: center;
+  }
+  .pokemon__stats ul li {
+    min-width: 110%;
+  }
+}
 .pokemon__stats .stats-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: honeydew;
   padding: 0.5rem 1rem;
   border-radius: 5rem;
 }
-@media only screen and (min-width: 56.25rem) {
+@media only screen and (min-width: 37.5rem) {
   .pokemon__evolutions {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -54,15 +70,13 @@
 .pokemon__evolutions .evolution__container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 .pokemon__evolutions .evolution__pokemon {
   cursor: pointer;
 }
-.pokemon__evolutions .evolution__image {
-  filter: grayscale(100%);
-}
-@media only screen and (min-width: 56.25rem) {
+@media only screen and (min-width: 37.5rem) {
   .pokemon__damage {
     grid-column-start: 1;
     grid-column-end: 3;

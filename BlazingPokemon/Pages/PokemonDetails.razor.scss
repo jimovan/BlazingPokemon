@@ -1,13 +1,12 @@
 ﻿.pokemon {
     &__container {
-        background-color: #b1adad;
+        background-color: #dbdbdb;
         padding: 1rem;
         border-radius: 10px;
         max-width: 30rem;
         display: grid;
-        row-gap: 1rem;
 
-        @media only screen and (min-width: 56.25rem) {
+        @media only screen and (min-width: 37.5rem) {
             min-width: 30rem;
         }
     }
@@ -22,18 +21,29 @@
     }
 
     &__image {
-        display: grid;
-        justify-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
 
         img {
-            width: 12.5rem;
+            width: 11rem;
         }
     }
 
     &__types {
         display: flex;
         justify-content: center;
+        align-items: flex-start;
         gap: 1rem;
+
+        .label {
+            color: rgb(0, 0, 0);
+            padding: 0.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
     }
 
     &__stats {
@@ -41,20 +51,27 @@
         ul {
             display: grid;
             gap: 0.5rem;
+
+            @media only screen and (max-width: 37.5rem) {
+                justify-content: center;
+
+                li {
+                    min-width: 110%;
+                }
+            }
         }
 
         .stats-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: honeydew;
             padding: 0.5rem 1rem;
             border-radius: 5rem;
         }
     }
 
     &__evolutions {
-        @media only screen and (min-width: 56.25rem) {
+        @media only screen and (min-width: 37.5rem) {
             grid-column-start: 1;
             grid-column-end: 3;
         }
@@ -68,21 +85,18 @@
             &__container {
                 display: flex;
                 flex-direction: row;
+                flex-wrap: wrap;
                 justify-content: space-around;
             }
 
             &__pokemon {
                 cursor: pointer;
             }
-
-            &__image {
-                filter: grayscale(100%);
-            }
         }
     }
 
     &__damage {
-        @media only screen and (min-width: 56.25rem) {
+        @media only screen and (min-width: 37.5rem) {
             grid-column-start: 1;
             grid-column-end: 3;
         }

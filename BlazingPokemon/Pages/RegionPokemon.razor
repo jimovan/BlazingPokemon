@@ -9,8 +9,6 @@
 
     @if (pokemon is not null && pokemon.Any())
     {
-        <h5>Service Call: @serviceTime.Seconds seconds</h5>
-
         <div class="region__grid">
                 @foreach (var p in pokemon)
                 {
@@ -41,17 +39,10 @@
     List<Pokemon> pokemon = new();
     bool isLoading = true;
 
-    Stopwatch stopWatch = new();
-    TimeSpan serviceTime;
-
     protected override async Task OnParametersSetAsync()
     {
-        stopWatch.Start();
         regionName = PokemonService.GetRegionName(Id);
         await LoadPokemon(true);
-
-        stopWatch.Stop();
-        serviceTime = stopWatch.Elapsed;
     }
 
     private async Task LoadPokemon(bool firstLoad = false)
