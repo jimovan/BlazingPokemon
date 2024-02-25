@@ -1,22 +1,24 @@
 ﻿@page "/"
+@using System.Security.Cryptography
 @inject IPokemonService PokemonService
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Welcome to Blazing Pokémon</h1>
 
-Welcome to your new app.
+Select a region from the menu to view Pokémon.
 
-@if(pokemon is not null)
-{
-    <h2>@pokemon.Name : @pokemon.Id</h2>
-}
+<br />
+<br />
+
+<PokemonDetails Id="randomId"></PokemonDetails>
 
 @code {
     private Pokemon? pokemon;
+    private int randomId;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        pokemon = await PokemonService.GetPokemonById(1);
+        randomId = RandomNumberGenerator.GetInt32(1, 898);
     }
 }

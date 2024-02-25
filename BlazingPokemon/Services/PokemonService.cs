@@ -96,12 +96,13 @@ namespace BlazingPokemon.Services
             [
                 new() { Id = 1, Name = "Kanto", StartIndex = 0, EndIndex = 150 }, // 1-151
                 new() { Id = 2, Name = "Johto", StartIndex = 151, EndIndex = 250 }, // 152-251
-                new() { Id = 3, Name = "Hoenn", StartIndex = 252, EndIndex = 385 }, // 252-386
+                new() { Id = 3, Name = "Hoenn", StartIndex = 251, EndIndex = 385 }, // 252-386
                 new() { Id = 4, Name = "Sinnoh", StartIndex = 386, EndIndex = 492 }, // 387-493
                 new() { Id = 5, Name = "Unova", StartIndex = 493, EndIndex = 648 }, // 494-649
                 new() { Id = 6, Name = "Kalos", StartIndex = 649, EndIndex = 720 }, // 650-721
-                new() { Id = 7, Name = "Alola", StartIndex = 721, EndIndex = 810 }, // 722-809
-                new() { Id = 8, Name = "Galar", StartIndex = 809, EndIndex = 897 }, // 810-898
+                new() { Id = 7, Name = "Alola", StartIndex = 721, EndIndex = 808 }, // 722-809
+                new() { Id = 8, Name = "Galar", StartIndex = 809, EndIndex = 904 }, // 810-905
+                new() { Id = 9, Name = "Paldea", StartIndex = 905, EndIndex = 1024 }, // 906-1025
             ];
         }
 
