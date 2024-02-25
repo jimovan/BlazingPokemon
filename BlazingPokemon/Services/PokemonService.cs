@@ -19,7 +19,7 @@ namespace BlazingPokemon.Services
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly string _pokeApiUrl = "https://pokeapi.co/api/v2";
 
-        private readonly int _pageLimit = 50;
+        private readonly int _pageLimit = 24;
         private int offset = 0;
 
         public async Task<Pokemon> GetPokemonById(int id)
