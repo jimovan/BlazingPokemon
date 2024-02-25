@@ -4,7 +4,7 @@
 @inject IPokemonService PokemonService
 @inject NavigationManager Navigation
 
-<div class="page-container">
+<div class="region__container">
     <h1 class="region__title">@regionName Pokemon</h1>
 
     @if (pokemon is not null && pokemon.Any())
@@ -27,7 +27,10 @@
 
     <Loader IsLoading="@isLoading"></Loader>
 
-    <button @onclick="() => LoadPokemon()">@(isLoading ? "Loading..." : "Load More")</button>
+    @if (!isLoading)
+    {
+        <button class="btn-more" @onclick="() => LoadPokemon()">Load More</button>
+    }    
 </div>
 
 @code {

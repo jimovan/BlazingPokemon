@@ -1,4 +1,16 @@
-﻿.region__title {
+﻿.region__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.region__container .btn-more {
+  border-radius: 10px;
+  padding: 0.5rem 2rem;
+  background-color: #b8defd;
+  font-weight: 700;
+}
+.region__title {
   text-align: center;
 }
 .region__grid {

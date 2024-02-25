@@ -19,7 +19,7 @@ namespace BlazingPokemon.Services
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private readonly string _pokeApiUrl = "https://pokeapi.co/api/v2";
 
-        private readonly int _pageLimit = 24;
+        private readonly int _pageLimit = 50;
         private int offset = 0;
 
         public async Task<Pokemon> GetPokemonById(int id)
@@ -59,12 +59,12 @@ namespace BlazingPokemon.Services
 
             if (offset + _pageLimit > region.EndIndex)
             {
-                pageLimit = (region.EndIndex - offset);
+                pageLimit = (region.EndIndex - offset) + 1;
             }
 
             if (pageLimit > 0)
             {
-                var response = await client.GetFromJsonAsync<PokemonResponse>($"{_pokeApiUrl}/pokemon?limit={pageLimit}&offset={offset - 1}",
+                var response = await client.GetFromJsonAsync<PokemonResponse>($"{_pokeApiUrl}/pokemon?limit={pageLimit}&offset={offset}",
                 new JsonSerializerOptions(JsonSerializerDefaults.Web));
 
                 var taskList = new List<Task<Pokemon>>();
@@ -94,14 +94,14 @@ namespace BlazingPokemon.Services
         {
             return
             [
-                new() { Id = 1, Name = "Kanto", StartIndex = 1, EndIndex = 151 }, // 1-151
-                new() { Id = 2, Name = "Johto", StartIndex = 152, EndIndex = 251 }, // 152-251
-                new() { Id = 3, Name = "Hoenn", StartIndex = 252, EndIndex = 386 }, // 252-386
-                new() { Id = 4, Name = "Sinnoh", StartIndex = 387, EndIndex = 493 }, // 387-493
-                new() { Id = 5, Name = "Unova", StartIndex = 494, EndIndex = 649 }, // 494-649
-                new() { Id = 6, Name = "Kalos", StartIndex = 650, EndIndex = 721 }, // 650-721
-                new() { Id = 7, Name = "Alola", StartIndex = 722, EndIndex = 809 }, // 722-809
-                new() { Id = 8, Name = "Galar", StartIndex = 810, EndIndex = 898 }, // 810-898
+                new() { Id = 1, Name = "Kanto", StartIndex = 0, EndIndex = 150 }, // 1-151
+                new() { Id = 2, Name = "Johto", StartIndex = 151, EndIndex = 250 }, // 152-251
+                new() { Id = 3, Name = "Hoenn", StartIndex = 252, EndIndex = 385 }, // 252-386
+                new() { Id = 4, Name = "Sinnoh", StartIndex = 386, EndIndex = 492 }, // 387-493
+                new() { Id = 5, Name = "Unova", StartIndex = 493, EndIndex = 648 }, // 494-649
+                new() { Id = 6, Name = "Kalos", StartIndex = 649, EndIndex = 720 }, // 650-721
+                new() { Id = 7, Name = "Alola", StartIndex = 721, EndIndex = 810 }, // 722-809
+                new() { Id = 8, Name = "Galar", StartIndex = 809, EndIndex = 897 }, // 810-898
             ];
         }
 

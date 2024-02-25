@@ -76,9 +76,3 @@
 .pokemon__evolutions .evolution__pokemon {
   cursor: pointer;
 }
-@media only screen and (min-width: 37.5rem) {
-  .pokemon__damage {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-}
